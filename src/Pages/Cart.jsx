@@ -86,10 +86,15 @@ const Cart = () => {
         <Button variant="secondary" size="lg">
           Continue Shopping
         </Button>
-
         <Button variant="success" size="lg">
           CheckOut
         </Button>
+      </div>
+      <br />
+      <div className="text-secondary text-end">
+        <h5>SubTotal: 000,000</h5>
+        <h5>Shipping: 000,000</h5>
+        <h3>Total: 000,000</h3>
       </div>
     </div>
   );
