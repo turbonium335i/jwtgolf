@@ -13,30 +13,16 @@ import {
 import { useContext, useState, useEffect } from "react";
 import AuthContext from "../Context/AuthContext";
 
-const Cart = () => {
-  let { user, logoutUser, authTokens } = useContext(AuthContext);
-  let [items, setItems] = useState([]);
+const Cart = ({ items, kart }) => {
+  var shopKart = [];
 
-  useEffect(() => {
-    getItems();
-  }, []);
-
-  let getItems = async () => {
-    let response = await fetch("http://127.0.0.1:8000/itemapi", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + String(authTokens.access),
-      },
-    });
-    let data = await response.json();
-
-    if (response.status === 200) {
-      setItems(data);
-    } else if (response.statusText === "Unauthorized") {
-      logoutUser();
+  for (var i = 0; i < items.length; i++) {
+    if (kart.includes(items[i].id)) {
+      shopKart.push(items[i]);
     }
-  };
+  }
+
+  console.log(shopKart);
 
   return (
     <div className="container">
@@ -53,7 +39,7 @@ const Cart = () => {
           </tr>
         </thead>
         <tbody>
-          {items.map((item, index) => (
+          {shopKart.map((item, index) => (
             <tr key={item.id}>
               <td>{index + 1}</td>
               <td>
@@ -95,6 +81,7 @@ const Cart = () => {
         <h5>SubTotal: 000,000</h5>
         <h5>Shipping: 000,000</h5>
         <h3>Total: 000,000</h3>
+        <h4>shopkart.id, price, total</h4>
       </div>
     </div>
   );

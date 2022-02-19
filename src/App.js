@@ -3,6 +3,8 @@ import "./App.css";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import { AuthProvider } from "./Context/AuthContext";
 import React, { useState, useEffect } from "react";
+import Aos from "aos";
+import "aos/dist/aos.css";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -26,31 +28,53 @@ import {
   BsEasel,
 } from "react-icons/bs";
 
+import PrivateRoute from "./Utils/PrivateRoute";
+
 import Home from "./Pages/Home";
 import Private from "./Pages/Private";
 import Login from "./Pages/Login";
 import Products from "./Pages/Products";
 import Cart from "./Pages/Cart";
-import PrivateRoute from "./Utils/PrivateRoute";
+import SignUp from "./Pages/SignUp";
+import KartNavbar from "./Components/KartNavbar";
+import UserID from "./Components/UserID";
 
 function App() {
   const [kartCount, setkartCount] = useState(0);
+  const [kart, setkart] = useState([5, 6]);
+  let [items, setItems] = useState([]);
 
-  var kart = [2, 3, 4];
+  useEffect(() => {
+    getItems();
+    setkartCount(kart.length);
+    Aos.init({ duration: 1000 });
+  }, []);
 
-  // useEffect(() => {
-  //   // set kart items after check orders
+  let getItems = async () => {
+    let response = await fetch("http://127.0.0.1:8000/itemapi", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    let data = await response.json();
 
-  //   setkartCount(0);
-  // }, []);
+    if (response.status === 200) {
+      setItems(data);
+    } else if (response.statusText === "Unauthorized") {
+      console.log("200 error");
+    }
+  };
 
   const onAdd = (id) => {
-    setkartCount(kartCount + 1);
-    // kart.push(id);
+    const newkartItem = { id };
+    setkart([...kart, newkartItem.id]);
+    // [...new Set(kart)]
+    setkartCount(kart.length + 1);
     // console.log(kart);
-    const kartItem = { id };
-    // setkartCount([...kartCount, kartItem].length);
   };
+
+  console.log(kart);
 
   return (
     <Router>
@@ -64,6 +88,7 @@ function App() {
                   height="30"
                   width="auto"
                   className="d-inline-block align-top"
+                  data-aos="fade-up"
                 />
                 {/* <span className="text-warning ">OnWear</span>Shop */}
               </Navbar.Brand>
@@ -91,14 +116,27 @@ function App() {
                   {" "}
                   Cart
                 </Link>
+                <Link to="/signup" className="text-decoration-none nav-link">
+                  {" "}
+                  SignUp
+                </Link>
               </Nav>
               <span className="text-warning">
                 <BsPersonCircle />
               </span>
-              &nbsp; <span className="text-warning">Guest &nbsp;</span>
-              <BsFillCartFill className="text-light" />
+              &nbsp;{" "}
+              <span className="text-warning">
+                <UserID /> &nbsp;
+              </span>
+              <Link to="/cart" style={{ textDecoration: "none" }}>
+                <BsFillCartFill className="text-light" />
+
+                <span className="text-light">
+                  {" "}
+                  <KartNavbar kart={kart} /> Items
+                </span>
+              </Link>
               &nbsp;
-              <span className="text-light"> {kartCount} Items</span>&nbsp;
             </Navbar.Collapse>
           </Container>
         </Navbar>
@@ -113,13 +151,16 @@ function App() {
             }}
           /> */}
         </div>
-
         <AuthProvider>
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="signup" element={<SignUp />} />
             <Route path="login" element={<Login />} />
-            <Route path="products" element={<Products onAdd={onAdd} />} />
-            <Route path="cart" element={<Cart />} />
+            <Route
+              path="products"
+              element={<Products onAdd={onAdd} items={items} />}
+            />
+            <Route path="cart" element={<Cart kart={kart} items={items} />} />
 
             <Route element={<PrivateRoute />}>
               <Route path="private" element={<Private />} />
