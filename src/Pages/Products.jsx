@@ -80,7 +80,7 @@ const Products = ({ onAdd, items }) => {
                 Some quick example text to build on the card title and make up
                 the bulk of the card's content.
                 {/* <Link to={`/productdetail/${item.id}`}>View Details</Link> */}
-                <Link to={`/productdetail/`}>View Details</Link>
+                <Link to={`/productdetail/${item.id}`}>View Details</Link>
               </Card.Text>
               <Button variant="secondary" onClick={() => addToCart(item.id)}>
                 Add to Cart

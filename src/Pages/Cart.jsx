@@ -14,7 +14,7 @@ import { useContext, useState, useEffect } from "react";
 import AuthContext from "../Context/AuthContext";
 import { Link } from "react-router-dom";
 
-const Cart = ({ items, kart }) => {
+const Cart = ({ items, kart, onDelete }) => {
   var shopKart = [];
 
   for (var i = 0; i < items.length; i++) {
@@ -22,8 +22,6 @@ const Cart = ({ items, kart }) => {
       shopKart.push(items[i]);
     }
   }
-
-  console.log(shopKart);
 
   return (
     <div className="container">
@@ -36,7 +34,7 @@ const Cart = ({ items, kart }) => {
             {/* <th>Description</th> */}
             <th className="col-1">Size</th>
             <th>Price</th>
-            <th>-</th>
+            <th className="col-1">Remove</th>
           </tr>
         </thead>
         <tbody>
@@ -63,7 +61,11 @@ const Cart = ({ items, kart }) => {
               <td>{item.size}</td>
               <td>{item.rentalprice}</td>
               <td>
-                <Button variant="outline-light" size="sm">
+                <Button
+                  variant="outline-light"
+                  size="sm"
+                  onClick={() => onDelete(item.id)}
+                >
                   X
                 </Button>
               </td>

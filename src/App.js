@@ -76,6 +76,11 @@ function App() {
     // console.log(kart);
   };
 
+  const onDelete = (id) => {
+    console.log(kart, id);
+    setkart(kart.filter((k) => k !== id));
+  };
+
   return (
     <Router>
       <AuthProvider>
@@ -165,7 +170,10 @@ function App() {
               element={<Products onAdd={onAdd} items={items} />}
             />
             <Route path="productdetail/:id" element={<ProductDetail />} />
-            <Route path="cart" element={<Cart kart={kart} items={items} />} />
+            <Route
+              path="cart"
+              element={<Cart kart={kart} items={items} onDelete={onDelete} />}
+            />
 
             <Route element={<PrivateRoute />}>
               <Route path="private" element={<Private />} />
