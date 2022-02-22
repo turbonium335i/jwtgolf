@@ -14,6 +14,7 @@ import {
 } from "react-bootstrap";
 import { useContext, useState, useEffect } from "react";
 import AuthContext from "../Context/AuthContext";
+import { Link, useParams } from "react-router-dom";
 
 const Products = ({ onAdd, items }) => {
   let { user, logoutUser, authTokens } = useContext(AuthContext);
@@ -44,10 +45,12 @@ const Products = ({ onAdd, items }) => {
       <CardGroup>
         {groupOne.map((item) => (
           <Card style={{ width: "18rem" }} key={item.id}>
-            <Card.Img
-              variant="top"
-              src="https://i.postimg.cc/KzKXjnqV/gfore.jpg"
-            />
+            <Link to={`/productdetail/${item.id}`}>
+              <Card.Img
+                variant="top"
+                src="https://i.postimg.cc/KzKXjnqV/gfore.jpg"
+              />
+            </Link>
             <Card.Body className="bg-dark">
               <Card.Title>{item.title} </Card.Title>
               <Card.Text>
@@ -65,15 +68,19 @@ const Products = ({ onAdd, items }) => {
       <CardGroup>
         {items.map((item) => (
           <Card style={{ width: "18rem" }} key={item.id}>
-            <Card.Img
-              variant="top"
-              src="https://i.postimg.cc/KzKXjnqV/gfore.jpg"
-            />
+            <Link to={`/productdetail/${item.id}`}>
+              <Card.Img
+                variant="top"
+                src="https://i.postimg.cc/KzKXjnqV/gfore.jpg"
+              />
+            </Link>
             <Card.Body className="bg-dark">
               <Card.Title>{item.title} </Card.Title>
               <Card.Text>
                 Some quick example text to build on the card title and make up
                 the bulk of the card's content.
+                {/* <Link to={`/productdetail/${item.id}`}>View Details</Link> */}
+                <Link to={`/productdetail/`}>View Details</Link>
               </Card.Text>
               <Button variant="secondary" onClick={() => addToCart(item.id)}>
                 Add to Cart

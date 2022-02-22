@@ -1,112 +1,61 @@
-import {
-  Navbar,
-  NavDropdown,
-  Nav,
-  Container,
-  Row,
-  Col,
-  ProgressBar,
-  Table,
-  Alert,
-  Card,
-  Button,
-  CardGroup,
-} from "react-bootstrap";
-import { useContext, useState, useEffect } from "react";
-import AuthContext from "../Context/AuthContext";
+import React from "react";
+import { Button } from "react-bootstrap";
 
-const Products = ({ onAdd }) => {
-  let { user, logoutUser, authTokens } = useContext(AuthContext);
-  let [items, setItems] = useState([]);
-
-  useEffect(() => {
-    getItems();
-  }, []);
-
-  let getItems = async () => {
-    let response = await fetch("http://127.0.0.1:8000/itemapi", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + String(authTokens.access),
-      },
-    });
-    let data = await response.json();
-
-    if (response.status === 200) {
-      setItems(data);
-    } else if (response.statusText === "Unauthorized") {
-      logoutUser();
-    }
-  };
-
-  var groupOne = items.slice(0, 3);
-
-  let addToCart = async (id) => {
-    console.log("addtocart ", id);
-    onAdd(id);
-
-    if (1 === 1) {
-      fetch(`http://127.0.0.1:8000/addtokartapi`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-
-        body: JSON.stringify({
-          id: id,
-          user: "username here",
-          action: "add",
-        }),
-      });
-    }
-  };
-
+const ProductDetail = ({ itemNum }) => {
   return (
-    <div className="container bg-dark text-warning">
-      Products
-      <CardGroup>
-        {groupOne.map((item) => (
-          <Card style={{ width: "18rem" }} key={item.id}>
-            <Card.Img
-              variant="top"
-              src="https://i.postimg.cc/KzKXjnqV/gfore.jpg"
-            />
-            <Card.Body className="bg-dark">
-              <Card.Title>{item.title} </Card.Title>
-              <Card.Text>
-                Some quick example text to build on the card title and make up
-                the bulk of the card's content.
-              </Card.Text>
-              <Button variant="secondary" onClick={() => addToCart(item.id)}>
-                Add to Cart
-              </Button>
-            </Card.Body>
-          </Card>
-        ))}
-      </CardGroup>
+    <div className="container bg-light mb-3">
+      ProductDetail {itemNum}
+      <div className="row">
+        <div className="col-md-8 border border-dark text-center pb-2">
+          {" "}
+          <img
+            src="https://i.postimg.cc/KzKXjnqV/gfore.jpg"
+            className="img-fluid py-2"
+          />
+        </div>
+        <div className="col-md-4 border border-dark pb-2">
+          <h1>Product Tile</h1>
+          <h2>prodcut siojsdf</h2>
+          <h6>jaskldfjoaifjaiosdfjasdfi</h6>
+          <h6>jaskldfjoaifjaiosdfjasdfi</h6>
+          <h6>jaskldfjoaifjaiosdfjasdfi</h6>
+          <h6>300.00</h6>
+          <br />
+          <Button variant="primary" size="lg">
+            Large button
+          </Button>{" "}
+          <Button variant="secondary" size="lg">
+            Large button
+          </Button>
+        </div>
+      </div>
       <br />
-      <CardGroup>
-        {items.map((item) => (
-          <Card style={{ width: "18rem" }} key={item.id}>
-            <Card.Img
-              variant="top"
-              src="https://i.postimg.cc/KzKXjnqV/gfore.jpg"
-            />
-            <Card.Body className="bg-dark">
-              <Card.Title>{item.title} </Card.Title>
-              <Card.Text>
-                Some quick example text to build on the card title and make up
-                the bulk of the card's content.
-              </Card.Text>
-              <Button variant="secondary" onClick={() => addToCart(item.id)}>
-                Add to Cart
-              </Button>
-            </Card.Body>
-          </Card>
-        ))}
-      </CardGroup>
-      <br />
+      <div> recommending with</div>
+      <div className="row border border-light pb-2">
+        <div className="col-4">
+          {" "}
+          <img
+            src="https://i.postimg.cc/KzKXjnqV/gfore.jpg"
+            className="img-fluid py-2"
+          />
+        </div>
+        <div className="col-4">
+          {" "}
+          <img
+            src="https://i.postimg.cc/KzKXjnqV/gfore.jpg"
+            className="img-fluid py-2"
+          />
+        </div>
+        <div className="col-4">
+          {" "}
+          <img
+            src="https://i.postimg.cc/KzKXjnqV/gfore.jpg"
+            className="img-fluid py-2"
+          />
+        </div>
+      </div>
     </div>
   );
 };
 
-export default Products;
+export default ProductDetail;

@@ -34,6 +34,7 @@ import Home from "./Pages/Home";
 import Private from "./Pages/Private";
 import Login from "./Pages/Login";
 import Products from "./Pages/Products";
+import ProductDetail from "./Pages/ProductDetail";
 import Cart from "./Pages/Cart";
 import SignUp from "./Pages/SignUp";
 import KartNavbar from "./Components/KartNavbar";
@@ -42,6 +43,7 @@ import UserID from "./Components/UserID";
 function App() {
   const [kartCount, setkartCount] = useState(0);
   const [kart, setkart] = useState([5, 6]);
+
   let [items, setItems] = useState([]);
 
   useEffect(() => {
@@ -74,84 +76,86 @@ function App() {
     // console.log(kart);
   };
 
-  console.log(kart);
-
   return (
     <Router>
-      <div className="App">
-        <Navbar bg="dark" expand="lg" variant="dark">
-          <Container>
-            <Link to="/" className="text-decoration-none">
-              <Navbar.Brand>
-                <img
-                  src="https://i.postimg.cc/zftpFhs3/onwearcrop.png"
-                  height="30"
-                  width="auto"
-                  className="d-inline-block align-top"
-                  data-aos="fade-up"
-                />
-                {/* <span className="text-warning ">OnWear</span>Shop */}
-              </Navbar.Brand>
-            </Link>
-            <Navbar.Toggle aria-controls="basic-navbar-nav" />
-            <Navbar.Collapse id="basic-navbar-nav">
-              <Nav className="me-auto">
-                <Link to="/" className="text-decoration-none nav-link">
-                  {" "}
-                  Home
-                </Link>
-                <Link to="/login" className="text-decoration-none nav-link">
-                  {" "}
-                  Login
-                </Link>
-                <Link to="/private" className="text-decoration-none nav-link">
-                  {" "}
-                  Private
-                </Link>
-                <Link to="/products" className="text-decoration-none nav-link">
-                  {" "}
-                  products
-                </Link>
-                <Link to="/cart" className="text-decoration-none nav-link">
-                  {" "}
-                  Cart
-                </Link>
-                <Link to="/signup" className="text-decoration-none nav-link">
-                  {" "}
-                  SignUp
-                </Link>
-              </Nav>
-              <span className="text-warning">
-                <BsPersonCircle />
-              </span>
-              &nbsp;{" "}
-              <span className="text-warning">
-                <UserID /> &nbsp;
-              </span>
-              <Link to="/cart" style={{ textDecoration: "none" }}>
-                <BsFillCartFill className="text-light" />
-
-                <span className="text-light">
-                  {" "}
-                  <KartNavbar kart={kart} /> Items
-                </span>
+      <AuthProvider>
+        <div className="App">
+          <Navbar bg="dark" expand="lg" variant="dark">
+            <Container>
+              <Link to="/" className="text-decoration-none">
+                <Navbar.Brand>
+                  <img
+                    src="https://i.postimg.cc/zftpFhs3/onwearcrop.png"
+                    height="30"
+                    width="auto"
+                    className="d-inline-block align-top"
+                    data-aos="fade-up"
+                  />
+                  {/* <span className="text-warning ">OnWear</span>Shop */}
+                </Navbar.Brand>
               </Link>
-              &nbsp;
-            </Navbar.Collapse>
-          </Container>
-        </Navbar>
-        <br />
-        <div className="text-center">
-          {" "}
-          {/* <img
+              <Navbar.Toggle aria-controls="basic-navbar-nav" />
+              <Navbar.Collapse id="basic-navbar-nav">
+                <Nav className="me-auto">
+                  <Link to="/" className="text-decoration-none nav-link">
+                    {" "}
+                    Home
+                  </Link>
+                  <Link to="/login" className="text-decoration-none nav-link">
+                    {" "}
+                    Login
+                  </Link>
+                  <Link to="/private" className="text-decoration-none nav-link">
+                    {" "}
+                    Private
+                  </Link>
+                  <Link
+                    to="/products"
+                    className="text-decoration-none nav-link"
+                  >
+                    {" "}
+                    products
+                  </Link>
+                  <Link to="/cart" className="text-decoration-none nav-link">
+                    {" "}
+                    Cart
+                  </Link>
+                  <Link to="/signup" className="text-decoration-none nav-link">
+                    {" "}
+                    SignUp
+                  </Link>
+                </Nav>
+                <span className="text-warning">
+                  <BsPersonCircle />
+                </span>
+                &nbsp;{" "}
+                <span className="text-warning">
+                  <UserID /> &nbsp;
+                </span>
+                <Link to="/cart" style={{ textDecoration: "none" }}>
+                  <BsFillCartFill className="text-light" />
+
+                  <span className="text-light">
+                    {" "}
+                    <KartNavbar kart={kart} /> Items
+                  </span>
+                </Link>
+                &nbsp;
+              </Navbar.Collapse>
+            </Container>
+          </Navbar>
+          <br />
+          <div className="text-center">
+            {" "}
+            {/* <img
             src="https://i.postimg.cc/MpC5Wy7k/ogp.png"
             style={{
               height: "25vh",
               width: "auto",
             }}
           /> */}
-        </div>
-        <AuthProvider>
+          </div>
+
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="signup" element={<SignUp />} />
@@ -160,17 +164,18 @@ function App() {
               path="products"
               element={<Products onAdd={onAdd} items={items} />}
             />
+            <Route path="productdetail/:id" element={<ProductDetail />} />
             <Route path="cart" element={<Cart kart={kart} items={items} />} />
 
             <Route element={<PrivateRoute />}>
               <Route path="private" element={<Private />} />
             </Route>
           </Routes>
-        </AuthProvider>
-      </div>
+        </div>
+      </AuthProvider>
     </Router>
   );
 }
 
 export default App;
-document.body.style = "background: black;";
+document.body.style = "background: white;";

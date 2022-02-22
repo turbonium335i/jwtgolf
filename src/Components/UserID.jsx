@@ -3,7 +3,15 @@ import AuthContext from "../Context/AuthContext";
 const UserID = () => {
   let { user } = useContext(AuthContext);
 
-  return <>ddd</>;
+  return (
+    <>
+      {user ? (
+        <span className="text-warning">{user.username}</span>
+      ) : (
+        <span className="text-secondary">Guest</span>
+      )}
+    </>
+  );
 };
 
 export default UserID;

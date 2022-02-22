@@ -12,6 +12,7 @@ import {
 } from "react-bootstrap";
 import { useContext, useState, useEffect } from "react";
 import AuthContext from "../Context/AuthContext";
+import { Link } from "react-router-dom";
 
 const Cart = ({ items, kart }) => {
   var shopKart = [];
@@ -43,11 +44,13 @@ const Cart = ({ items, kart }) => {
             <tr key={item.id}>
               <td>{index + 1}</td>
               <td>
-                <img
-                  src="https://i.postimg.cc/KzKXjnqV/gfore.jpg"
-                  height="55"
-                  width="auto"
-                />
+                <Link to={`/productdetail/${item.id}`}>
+                  <img
+                    src="https://i.postimg.cc/KzKXjnqV/gfore.jpg"
+                    height="55"
+                    width="auto"
+                  />
+                </Link>
               </td>
               <td>
                 {item.title} <br />{" "}
