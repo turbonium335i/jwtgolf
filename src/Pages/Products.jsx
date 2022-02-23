@@ -16,14 +16,15 @@ import { useContext, useState, useEffect } from "react";
 import AuthContext from "../Context/AuthContext";
 import { Link, useParams } from "react-router-dom";
 
-const Products = ({ onAdd, items }) => {
+const Products = ({ onAdd, items, mstat }) => {
   let { user, logoutUser, authTokens } = useContext(AuthContext);
 
   var groupOne = items.slice(0, 3);
 
-  let addToCart = async (id) => {
+  let addToCart = async (id, title) => {
     console.log("addtocart ", id);
     onAdd(id);
+    mstat(title);
 
     if (1 === 1) {
       fetch(`http://127.0.0.1:8000/addtokartapi`, {
@@ -57,7 +58,10 @@ const Products = ({ onAdd, items }) => {
                 Some quick example text to build on the card title and make up
                 the bulk of the card's content.
               </Card.Text>
-              <Button variant="secondary" onClick={() => addToCart(item.id)}>
+              <Button
+                variant="secondary"
+                onClick={() => addToCart(item.id, item.title)}
+              >
                 Add to Cart
               </Button>
             </Card.Body>

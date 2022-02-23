@@ -33,18 +33,29 @@ import PrivateRoute from "./Utils/PrivateRoute";
 import Home from "./Pages/Home";
 import Private from "./Pages/Private";
 import Login from "./Pages/Login";
+import Landing from "./Pages/Landing";
 import Products from "./Pages/Products";
 import ProductDetail from "./Pages/ProductDetail";
 import Cart from "./Pages/Cart";
 import SignUp from "./Pages/SignUp";
+
 import KartNavbar from "./Components/KartNavbar";
 import UserID from "./Components/UserID";
+import FooterRaw from "./Components/FooterRaw";
+import Messagebox from "./Components/Messagebox";
 
 function App() {
   const [kartCount, setkartCount] = useState(0);
   const [kart, setkart] = useState([5, 6]);
 
   let [items, setItems] = useState([]);
+  const [success, setSuccess] = useState(false);
+
+  function timer() {
+    setTimeout(() => {
+      setSuccess(false);
+    }, 2000);
+  }
 
   useEffect(() => {
     getItems();
@@ -70,10 +81,12 @@ function App() {
 
   const onAdd = (id) => {
     const newkartItem = { id };
-    setkart([...kart, newkartItem.id]);
-    // [...new Set(kart)]
-    setkartCount(kart.length + 1);
-    // console.log(kart);
+    // setkart([...kart, newkartItem.id]);
+
+    let cKart = [...kart, newkartItem.id];
+    let newkart = [...new Set(cKart)];
+    setkart(newkart);
+    setkartCount(newkart.length);
   };
 
   const onDelete = (id) => {
@@ -81,11 +94,25 @@ function App() {
     setkart(kart.filter((k) => k !== id));
   };
 
+  const mstat = (stat) => {
+    if (stat === false) {
+      setSuccess(false);
+    } else {
+      setSuccess(true);
+      timer();
+    }
+  };
+
   return (
     <Router>
       <AuthProvider>
         <div className="App">
-          <Navbar bg="dark" expand="lg" variant="dark">
+          <Navbar
+            bg="light"
+            expand="lg"
+            variant="light"
+            className="border-bottom border-danger"
+          >
             <Container>
               <Link to="/" className="text-decoration-none">
                 <Navbar.Brand>
@@ -137,10 +164,11 @@ function App() {
                 <span className="text-warning">
                   <UserID /> &nbsp;
                 </span>
+                {kartCount}
                 <Link to="/cart" style={{ textDecoration: "none" }}>
-                  <BsFillCartFill className="text-light" />
+                  <BsFillCartFill className="text-dark" />
 
-                  <span className="text-light">
+                  <span className="text-dark">
                     {" "}
                     <KartNavbar kart={kart} /> Items
                   </span>
@@ -149,6 +177,7 @@ function App() {
               </Navbar.Collapse>
             </Container>
           </Navbar>
+          {success && <Messagebox mstat={mstat} />}
           <br />
           <div className="text-center">
             {" "}
@@ -162,14 +191,18 @@ function App() {
           </div>
 
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<Landing />} />
+            <Route path="home" element={<Home />} />
             <Route path="signup" element={<SignUp />} />
             <Route path="login" element={<Login />} />
             <Route
               path="products"
-              element={<Products onAdd={onAdd} items={items} />}
+              element={<Products onAdd={onAdd} items={items} mstat={mstat} />}
             />
-            <Route path="productdetail/:id" element={<ProductDetail />} />
+            <Route
+              path="productdetail/:id"
+              element={<ProductDetail onAdd={onAdd} mstat={mstat} />}
+            />
             <Route
               path="cart"
               element={<Cart kart={kart} items={items} onDelete={onDelete} />}
@@ -179,6 +212,7 @@ function App() {
               <Route path="private" element={<Private />} />
             </Route>
           </Routes>
+          <FooterRaw />
         </div>
       </AuthProvider>
     </Router>

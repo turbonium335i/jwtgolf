@@ -1,15 +1,34 @@
 import { Button } from "react-bootstrap";
 import { useState, useEffect } from "react";
-import { useParams, Navigate, useNavigate } from "react-router-dom";
+import { useParams, Navigate, useNavigate, Link } from "react-router-dom";
 import { BsFillArrowLeftCircleFill } from "react-icons/bs";
 
-const ProductDetail = ({ itemNum }) => {
+const ProductDetail = ({ itemNum, onAdd, mstat }) => {
   const [loading, setLoading] = useState(true);
   const [task, setTask] = useState({});
   const [error, setError] = useState(null);
 
   const params = useParams();
   const navigate = useNavigate();
+
+  let addToCart = async (id, title) => {
+    console.log("addtocart ", id);
+    onAdd(id);
+    mstat(title);
+
+    if (1 === 1) {
+      fetch(`http://127.0.0.1:8000/addtokartapi`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+
+        body: JSON.stringify({
+          id: id,
+          user: "username here",
+          action: "add",
+        }),
+      });
+    }
+  };
 
   useEffect(() => {
     const fetchTask = async () => {
@@ -28,10 +47,6 @@ const ProductDetail = ({ itemNum }) => {
     };
     fetchTask();
   }, []);
-
-  // if (error) {
-  //   return <Navigate to="/" />;
-  // }
 
   return (
     <div className="container bg-light mb-3">
@@ -57,7 +72,11 @@ const ProductDetail = ({ itemNum }) => {
           <Button variant="secondary" size="lg">
             Save
           </Button>{" "}
-          <Button variant="primary" size="lg">
+          <Button
+            variant="primary"
+            size="lg"
+            onClick={() => addToCart(task.id)}
+          >
             Add to Cart
           </Button>
           <br />
@@ -78,14 +97,20 @@ const ProductDetail = ({ itemNum }) => {
       <div className="row border border-light pb-2">
         <div className="col-4">
           {" "}
-          <img src={task.imglink} className="img-fluid py-2" />
+          <Link to={`/productdetail/${task.id}`}>
+            <img src={task.imglink} className="img-fluid py-2" />
+          </Link>
         </div>
         <div className="col-4">
           {" "}
           <img
             src="https://i.postimg.cc/KzKXjnqV/gfore.jpg"
             className="img-fluid py-2"
-          />
+            style={{ cursor: "pointer" }}
+            onClick={() => {
+              window.location.href = "/productdetail/1";
+            }}
+          />{" "}
         </div>
         <div className="col-4">
           {" "}
