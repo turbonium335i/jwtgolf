@@ -43,13 +43,13 @@ import KartNavbar from "./Components/KartNavbar";
 import UserID from "./Components/UserID";
 import FooterRaw from "./Components/FooterRaw";
 import Messagebox from "./Components/Messagebox";
+import CheckOut from "./Pages/CheckOut";
 
 function App() {
-  const [kartCount, setkartCount] = useState(0);
   const [kart, setkart] = useState([5, 6]);
-
   let [items, setItems] = useState([]);
   const [success, setSuccess] = useState(false);
+  const [messageInfo, setMessageInfo] = useState("0900");
 
   function timer() {
     setTimeout(() => {
@@ -59,7 +59,6 @@ function App() {
 
   useEffect(() => {
     getItems();
-    setkartCount(kart.length);
     Aos.init({ duration: 1000 });
   }, []);
 
@@ -86,7 +85,6 @@ function App() {
     let cKart = [...kart, newkartItem.id];
     let newkart = [...new Set(cKart)];
     setkart(newkart);
-    setkartCount(newkart.length);
   };
 
   const onDelete = (id) => {
@@ -101,6 +99,10 @@ function App() {
       setSuccess(true);
       timer();
     }
+  };
+
+  const messageback = (info) => {
+    setMessageInfo(info);
   };
 
   return (
@@ -164,7 +166,6 @@ function App() {
                 <span className="text-warning">
                   <UserID /> &nbsp;
                 </span>
-                {kartCount}
                 <Link to="/cart" style={{ textDecoration: "none" }}>
                   <BsFillCartFill className="text-dark" />
 
@@ -177,7 +178,7 @@ function App() {
               </Navbar.Collapse>
             </Container>
           </Navbar>
-          {success && <Messagebox mstat={mstat} />}
+          {success && <Messagebox mstat={mstat} messageInfo={messageInfo} />}
           <br />
           <div className="text-center">
             {" "}
@@ -193,19 +194,41 @@ function App() {
           <Routes>
             <Route path="/" element={<Landing />} />
             <Route path="home" element={<Home />} />
-            <Route path="signup" element={<SignUp />} />
+            <Route
+              path="signup"
+              element={<SignUp mstat={mstat} messageback={messageback} />}
+            />
             <Route path="login" element={<Login />} />
             <Route
               path="products"
-              element={<Products onAdd={onAdd} items={items} mstat={mstat} />}
+              element={
+                <Products
+                  onAdd={onAdd}
+                  items={items}
+                  mstat={mstat}
+                  messageback={messageback}
+                />
+              }
             />
             <Route
               path="productdetail/:id"
-              element={<ProductDetail onAdd={onAdd} mstat={mstat} />}
+              element={
+                <ProductDetail
+                  onAdd={onAdd}
+                  mstat={mstat}
+                  messageback={messageback}
+                />
+              }
             />
             <Route
               path="cart"
               element={<Cart kart={kart} items={items} onDelete={onDelete} />}
+            />
+            <Route
+              path="checkout"
+              element={
+                <CheckOut kart={kart} items={items} onDelete={onDelete} />
+              }
             />
 
             <Route element={<PrivateRoute />}>

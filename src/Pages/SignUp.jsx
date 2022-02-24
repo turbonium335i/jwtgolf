@@ -1,35 +1,42 @@
 import React from "react";
 
-let sendData = async () => {
-  const api_userName = document.getElementById("userName").value;
-  const api_nameName = document.getElementById("nameName").value;
-  const api_email = document.getElementById("email").value;
-  const api_password = document.getElementById("password").value;
+const SignUp = ({ mstat, messageback }) => {
+  let sendData = async () => {
+    const api_userName = document.getElementById("userName").value;
+    const api_nameName = document.getElementById("nameName").value;
+    const api_email = document.getElementById("email").value;
+    const api_password = document.getElementById("password").value;
 
-  if (1 === 1) {
-    console.log("data sent from front");
+    if (1 === 1) {
+      console.log("data sent from front");
 
-    fetch("http://127.0.0.1:8000/reactMakeUser", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
+      fetch("http://127.0.0.1:8000/reactMakeUser", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
 
-      body: JSON.stringify({
-        api_userName: api_userName,
-        api_nameName: api_nameName,
-        api_email: api_email,
-        api_password: api_password,
-      }),
-    })
-      .then((response) => {
-        return response.json();
+        body: JSON.stringify({
+          api_userName: api_userName,
+          api_nameName: api_nameName,
+          api_email: api_email,
+          api_password: api_password,
+        }),
       })
-      .then((data) => {
-        console.log("data", data);
-      });
-  }
-};
+        .then((response) => {
+          return response.json();
+        })
+        .then((data) => {
+          console.log("data", data);
+          if (data === "SomethingWrong") {
+            messageback("Error! Duplicate Username or Email");
+            mstat();
+          } else {
+            messageback("Account Created: " + api_userName);
+            mstat();
+          }
+        });
+    }
+  };
 
-const SignUp = () => {
   return (
     <div className="container bg-secondary">
       <form>

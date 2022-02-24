@@ -16,7 +16,7 @@ import { useContext, useState, useEffect } from "react";
 import AuthContext from "../Context/AuthContext";
 import { Link, useParams } from "react-router-dom";
 
-const Products = ({ onAdd, items, mstat }) => {
+const Products = ({ onAdd, items, mstat, messageback }) => {
   let { user, logoutUser, authTokens } = useContext(AuthContext);
 
   var groupOne = items.slice(0, 3);
@@ -25,6 +25,7 @@ const Products = ({ onAdd, items, mstat }) => {
     console.log("addtocart ", id);
     onAdd(id);
     mstat(title);
+    messageback(title + " added!");
 
     if (1 === 1) {
       fetch(`http://127.0.0.1:8000/addtokartapi`, {

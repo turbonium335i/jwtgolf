@@ -25,7 +25,7 @@ const Cart = ({ items, kart, onDelete }) => {
 
   return (
     <div className="container">
-      <Table striped bordered hover variant="dark">
+      <Table striped bordered hover variant="light">
         <thead>
           <tr>
             <th className="col-1">#</th>
@@ -62,7 +62,7 @@ const Cart = ({ items, kart, onDelete }) => {
               <td>{item.rentalprice}</td>
               <td>
                 <Button
-                  variant="outline-light"
+                  variant="outline-danger"
                   size="sm"
                   onClick={() => onDelete(item.id)}
                 >
@@ -74,12 +74,16 @@ const Cart = ({ items, kart, onDelete }) => {
         </tbody>
       </Table>
       <div className="d-flex justify-content-end gap-2">
-        <Button variant="secondary" size="lg">
-          Continue Shopping
-        </Button>
-        <Button variant="success" size="lg">
-          CheckOut
-        </Button>
+        <Link to={`/products`}>
+          <Button variant="secondary" size="lg">
+            Continue Shopping
+          </Button>{" "}
+        </Link>
+        <Link to={`/checkout`}>
+          <Button variant="success" size="lg">
+            CheckOut
+          </Button>
+        </Link>
       </div>
       <br />
       <div className="text-secondary text-end">

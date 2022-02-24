@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { useParams, Navigate, useNavigate, Link } from "react-router-dom";
 import { BsFillArrowLeftCircleFill } from "react-icons/bs";
 
-const ProductDetail = ({ itemNum, onAdd, mstat }) => {
+const ProductDetail = ({ itemNum, onAdd, mstat, messageback }) => {
   const [loading, setLoading] = useState(true);
   const [task, setTask] = useState({});
   const [error, setError] = useState(null);
@@ -14,6 +14,8 @@ const ProductDetail = ({ itemNum, onAdd, mstat }) => {
   let addToCart = async (id, title) => {
     console.log("addtocart ", id);
     onAdd(id);
+
+    messageback(title + " added!");
     mstat(title);
 
     if (1 === 1) {
@@ -75,7 +77,7 @@ const ProductDetail = ({ itemNum, onAdd, mstat }) => {
           <Button
             variant="primary"
             size="lg"
-            onClick={() => addToCart(task.id)}
+            onClick={() => addToCart(task.id, task.title)}
           >
             Add to Cart
           </Button>
