@@ -10,6 +10,7 @@ import {
   Carousel,
 } from "react-bootstrap";
 import { useContext, useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 var now = new Date();
 var daycheck = now.getDate();
@@ -24,11 +25,11 @@ if (String(mocheck).length < 2) {
 
 var today = now.getFullYear() + "-" + mocheck + "-" + daycheck;
 
-const Landing = () => {
+const Landing = ({ rentDate }) => {
   let [RoundDate, setRoundDate] = useState(today);
 
   function dateSubmit(subdate) {
-    console.log(subdate);
+    rentDate(subdate);
   }
 
   return (
@@ -49,16 +50,18 @@ const Landing = () => {
           onChange={(evt) => {
             setRoundDate(evt.target.value);
           }}
-        />
-        <Button
-          variant="outline-primary"
-          onClick={() => {
-            dateSubmit(RoundDate);
-          }}
-        >
-          <BsSearch />
-        </Button>{" "}
-        <span className="text-danger mt-1 ms-2">{RoundDate}</span>
+        />{" "}
+        <Link to={`/productbydate`}>
+          <Button
+            variant="outline-primary"
+            onClick={() => {
+              dateSubmit(RoundDate);
+            }}
+          >
+            <BsSearch />
+          </Button>
+        </Link>{" "}
+        {/* <span className="text-danger mt-1 ms-2">{RoundDate}</span> */}
       </div>
 
       <div className="container mt-2">

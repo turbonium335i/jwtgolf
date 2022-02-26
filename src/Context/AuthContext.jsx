@@ -25,16 +25,19 @@ export const AuthProvider = ({ children }) => {
   let loginUser = async (e) => {
     e.preventDefault();
     console.log("form submitted");
-    let response = await fetch("http://127.0.0.1:8000/token/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        username: e.target.username.value,
-        password: e.target.password.value,
-      }),
-    });
+    let response = await fetch(
+      "https://pertinacity1.pythonanywhere.com/token/",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: e.target.username.value,
+          password: e.target.password.value,
+        }),
+      }
+    );
     let data = await response.json();
     console.log(data);
 
@@ -59,13 +62,16 @@ export const AuthProvider = ({ children }) => {
   let updateToken = async () => {
     console.log("token update");
 
-    let response = await fetch("http://127.0.0.1:8000/token/refresh/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ refresh: authTokens?.refresh }),
-    });
+    let response = await fetch(
+      "https://pertinacity1.pythonanywhere.com/token/refresh/",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ refresh: authTokens?.refresh }),
+      }
+    );
 
     let data = await response.json();
 

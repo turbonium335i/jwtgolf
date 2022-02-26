@@ -24,13 +24,16 @@ const Home = () => {
   }, []);
 
   let getItems = async () => {
-    let response = await fetch("http://127.0.0.1:8000/itemapi", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + String(authTokens.access),
-      },
-    });
+    let response = await fetch(
+      "https://pertinacity1.pythonanywhere.com/itemapi",
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + String(authTokens.access),
+        },
+      }
+    );
     let data = await response.json();
 
     if (response.status === 200) {

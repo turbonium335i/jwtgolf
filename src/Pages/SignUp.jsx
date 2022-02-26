@@ -1,16 +1,29 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const SignUp = ({ mstat, messageback }) => {
+  let navigate = useNavigate();
+
   let sendData = async () => {
     const api_userName = document.getElementById("userName").value;
     const api_nameName = document.getElementById("nameName").value;
     const api_email = document.getElementById("email").value;
     const api_password = document.getElementById("password").value;
+    const api_password2 = document.getElementById("password2").value;
 
-    if (1 === 1) {
+    if (
+      api_password === api_password2 &&
+      api_password.length > 6 &&
+      api_userName !== "" &&
+      api_userName.length > 6 &&
+      api_nameName !== "" &&
+      api_nameName.length > 1 &&
+      api_email !== "" &&
+      api_email.length > 6
+    ) {
       console.log("data sent from front");
 
-      fetch("http://127.0.0.1:8000/reactMakeUser", {
+      fetch("https://pertinacity1.pythonanywhere.com/reactMakeUser", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
 
@@ -32,8 +45,12 @@ const SignUp = ({ mstat, messageback }) => {
           } else {
             messageback("Account Created: " + api_userName);
             mstat();
+            // navigate("/login");
           }
         });
+    } else {
+      messageback("Error! Form Incorrect");
+      mstat();
     }
   };
 
@@ -83,6 +100,7 @@ const SignUp = ({ mstat, messageback }) => {
             type="password"
             className="form-control"
             placeholder="Re-password"
+            id="password2"
           />
         </div>
         <br />

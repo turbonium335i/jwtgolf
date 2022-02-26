@@ -19,7 +19,7 @@ const ProductDetail = ({ itemNum, onAdd, mstat, messageback }) => {
     mstat(title);
 
     if (1 === 1) {
-      fetch(`http://127.0.0.1:8000/addtokartapi`, {
+      fetch(`https://pertinacity1.pythonanywhere.com/addtokartapi`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
 

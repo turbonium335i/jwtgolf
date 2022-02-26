@@ -44,12 +44,27 @@ import UserID from "./Components/UserID";
 import FooterRaw from "./Components/FooterRaw";
 import Messagebox from "./Components/Messagebox";
 import CheckOut from "./Pages/CheckOut";
+import ProductByDate from "./Pages/ProductByDate";
+
+var now = new Date();
+var daycheck = now.getDate();
+if (String(daycheck).length < 2) {
+  daycheck = "0" + daycheck;
+}
+
+var mocheck = now.getMonth();
+if (String(mocheck).length < 2) {
+  mocheck = "0" + (mocheck + 1);
+}
+
+var today = now.getFullYear() + "-" + mocheck + "-" + daycheck;
 
 function App() {
   const [kart, setkart] = useState([5, 6]);
   let [items, setItems] = useState([]);
   const [success, setSuccess] = useState(false);
-  const [messageInfo, setMessageInfo] = useState("0900");
+  const [messageInfo, setMessageInfo] = useState("0");
+  const [queryDate, setQueryDate] = useState(today);
 
   function timer() {
     setTimeout(() => {
@@ -63,12 +78,15 @@ function App() {
   }, []);
 
   let getItems = async () => {
-    let response = await fetch("http://127.0.0.1:8000/itemapi", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    let response = await fetch(
+      "https://pertinacity1.pythonanywhere.com/itemapi",
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
     let data = await response.json();
 
     if (response.status === 200) {
@@ -103,6 +121,11 @@ function App() {
 
   const messageback = (info) => {
     setMessageInfo(info);
+  };
+
+  const rentDate = (info) => {
+    setQueryDate(info);
+    console.log(info);
   };
 
   return (
@@ -192,7 +215,7 @@ function App() {
           </div>
 
           <Routes>
-            <Route path="/" element={<Landing />} />
+            <Route path="/" element={<Landing rentDate={rentDate} />} />
             <Route path="home" element={<Home />} />
             <Route
               path="signup"
@@ -215,6 +238,19 @@ function App() {
               element={
                 <ProductDetail
                   onAdd={onAdd}
+                  mstat={mstat}
+                  messageback={messageback}
+                />
+              }
+            />
+            <Route
+              path="productbydate"
+              element={
+                <ProductByDate
+                  rentDate={rentDate}
+                  queryDate={queryDate}
+                  onAdd={onAdd}
+                  items={items}
                   mstat={mstat}
                   messageback={messageback}
                 />
