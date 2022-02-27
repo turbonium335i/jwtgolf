@@ -35,7 +35,7 @@ const ProductDetail = ({ itemNum, onAdd, mstat, messageback }) => {
   useEffect(() => {
     const fetchTask = async () => {
       const res = await fetch(
-        `http://127.0.0.1:8000/itemapidetail/${params.id}`
+        `https://pertinacity1.pythonanywhere.com/itemapidetail/${params.id}`
       );
       const data = await res.json();
 
