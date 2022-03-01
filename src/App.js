@@ -38,6 +38,7 @@ import Products from "./Pages/Products";
 import ProductDetail from "./Pages/ProductDetail";
 import Cart from "./Pages/Cart";
 import SignUp from "./Pages/SignUp";
+import Profile from "./Pages/Profile";
 
 import KartNavbar from "./Components/KartNavbar";
 import UserID from "./Components/UserID";
@@ -60,7 +61,7 @@ if (String(mocheck).length < 2) {
 var today = now.getFullYear() + "-" + mocheck + "-" + daycheck;
 
 function App() {
-  const [kart, setkart] = useState([5, 6]);
+  const [kart, setkart] = useState([]);
   let [items, setItems] = useState([]);
   const [success, setSuccess] = useState(false);
   const [messageInfo, setMessageInfo] = useState("0");
@@ -265,6 +266,10 @@ function App() {
               element={
                 <CheckOut kart={kart} items={items} onDelete={onDelete} />
               }
+            />
+            <Route
+              path="profile"
+              element={<Profile kart={kart} items={items} />}
             />
 
             <Route element={<PrivateRoute />}>

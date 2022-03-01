@@ -6,7 +6,7 @@ const UserID = () => {
   return (
     <>
       {user ? (
-        <span className="text-warning">{user.username}</span>
+        <span className="text-warning">{user.username} </span>
       ) : (
         <span className="text-secondary">Guest</span>
       )}
