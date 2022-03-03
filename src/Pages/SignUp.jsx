@@ -55,9 +55,17 @@ const SignUp = ({ mstat, messageback }) => {
   };
 
   return (
-    <div className="container bg-secondary">
+    <div className="container">
       <form>
-        <h3>OnWear Golf Sign Up</h3>
+        {" "}
+        <img
+          src="https://i.postimg.cc/zftpFhs3/onwearcrop.png"
+          height="30"
+          width="auto"
+          className="d-inline-block align-top"
+          data-aos="fade-up"
+        />
+        <h3 className="d-inline-block">&nbsp; Member Sign Up</h3>
         <div className="form-group">
           <label>Username</label>
           <input
@@ -104,21 +112,26 @@ const SignUp = ({ mstat, messageback }) => {
           />
         </div>
         <br />
+        <div>terms and conditions</div>
         <div className="  text-center">
           <button
             type="button"
-            className="btn btn-lg btn-dark btn-block "
+            className="btn btn-lg btn-outline-success btn-block "
             onClick={sendData}
           >
             Sign Up
           </button>
           <br />
           <br />
-          <p className="forgot-password text-right">
+          {/* <p className="forgot-password text-right">
             Already registered <a href="#">sign in?</a>
-          </p>
+          </p> */}
         </div>
       </form>
+      <br />
+      <br />
+      <br />
+      <br />
     </div>
   );
 };

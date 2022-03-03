@@ -68,7 +68,7 @@ const ProductByDate = ({
           type="date"
           id="roundate"
           name="roundate"
-          className="rounded"
+          className="rounded border-success"
           defaultValue={queryDate}
           onChange={(evt) => {
             setRoundDate(evt.target.value);
@@ -76,7 +76,7 @@ const ProductByDate = ({
         />{" "}
         <Link to={`/productbydate`}>
           <Button
-            variant="outline-primary"
+            variant="outline-success"
             onClick={() => {
               dateSubmit(RoundDate);
             }}
@@ -86,13 +86,22 @@ const ProductByDate = ({
         </Link>{" "}
         <span className="text-danger mt-1 ms-2">{RoundDate}</span>
       </div>
+      <div className="container text-center mt-2">
+        <Button variant="outline-primary">PXG</Button>{" "}
+        <Button variant="outline-primary">GFORE</Button>{" "}
+        <Button variant="outline-primary">WAAC</Button>{" "}
+        <Button variant="outline-primary">TITLIST</Button>{" "}
+        <Button variant="outline-danger">Acc</Button>{" "}
+        <Button variant="outline-warning">Top</Button>{" "}
+        <Button variant="outline-success">Bottom</Button>
+      </div>
       Query by Date:
       <h1>{queryDate}</h1>
       <Table striped bordered hover variant="light">
         <thead>
           <tr>
             <th className="col-1">#</th>
-            <th className="col-2">Image</th>
+            <th className="col-2 text-center">Image</th>
             <th>Product Name</th>
             {/* <th>Description</th> */}
             <th className="col-1">Size</th>
@@ -103,11 +112,11 @@ const ProductByDate = ({
           {items.map((item, index) => (
             <tr key={item.id}>
               <td>{index + 1}</td>
-              <td>
+              <td className="text-center">
                 <Link to={`/productdetail/${item.id}`}>
                   <img
                     src="https://i.postimg.cc/KzKXjnqV/gfore.jpg"
-                    height="200"
+                    height="60vh"
                     width="auto"
                   />
                 </Link>

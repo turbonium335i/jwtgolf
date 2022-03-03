@@ -1,4 +1,10 @@
 import React from "react";
+import {
+  BsInstagram,
+  BsFillChatDotsFill,
+  BsFillGeoFill,
+  BsFillQuestionCircleFill,
+} from "react-icons/bs";
 
 const Footer = () => (
   <footer className="page-footer font-small blue pt-4">
@@ -22,16 +28,12 @@ const Footer = () => (
           <h5 className="text-uppercase">Quick Link</h5>
           <ul className="list-unstyled">
             <li>
-              <a href="#!">Link 1</a>
+              <BsFillQuestionCircleFill className="text-success" />
+              <a href="#!">About</a>
             </li>
             <li>
-              <a href="#!">Link 2</a>
-            </li>
-            <li>
-              <a href="#!">Link 3</a>
-            </li>
-            <li>
-              <a href="#!">Link 4</a>
+              <BsFillQuestionCircleFill className="text-success" />
+              <a href="#!">How to</a>
             </li>
           </ul>
         </div>
@@ -40,16 +42,14 @@ const Footer = () => (
           <h5 className="text-uppercase">Social</h5>
           <ul className="list-unstyled">
             <li>
-              <a href="#!">Link 1</a>
+              <BsInstagram /> <a href="#!">Instagram</a>
             </li>
             <li>
-              <a href="#!">Link 2</a>
+              <BsFillChatDotsFill className="text-warning" />{" "}
+              <a href="#!">Kakao</a>
             </li>
             <li>
-              <a href="#!">Link 3</a>
-            </li>
-            <li>
-              <a href="#!">Link 4</a>
+              <BsFillGeoFill className="text-success" /> <a href="#!">Naver</a>
             </li>
           </ul>
         </div>

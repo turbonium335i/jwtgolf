@@ -42,7 +42,7 @@ const Products = ({ onAdd, items, mstat, messageback }) => {
   };
 
   return (
-    <div className="container bg-dark text-warning">
+    <div className="container  text-dark">
       Products
       <CardGroup>
         {groupOne.map((item) => (
@@ -53,14 +53,14 @@ const Products = ({ onAdd, items, mstat, messageback }) => {
                 src="https://i.postimg.cc/KzKXjnqV/gfore.jpg"
               />
             </Link>
-            <Card.Body className="bg-dark">
+            <Card.Body className="">
               <Card.Title>{item.title} </Card.Title>
               <Card.Text>
                 Some quick example text to build on the card title and make up
                 the bulk of the card's content.
               </Card.Text>
               <Button
-                variant="secondary"
+                variant="outline-success"
                 onClick={() => addToCart(item.id, item.title)}
               >
                 Add to Cart
@@ -76,10 +76,10 @@ const Products = ({ onAdd, items, mstat, messageback }) => {
             <Link to={`/productdetail/${item.id}`}>
               <Card.Img
                 variant="top"
-                src="https://i.postimg.cc/KzKXjnqV/gfore.jpg"
+                src="https://i.postimg.cc/DfS1jYhW/pxgwo.jpg"
               />
             </Link>
-            <Card.Body className="bg-dark">
+            <Card.Body className="">
               <Card.Title>{item.title} </Card.Title>
               <Card.Text>
                 Some quick example text to build on the card title and make up
@@ -87,7 +87,10 @@ const Products = ({ onAdd, items, mstat, messageback }) => {
                 {/* <Link to={`/productdetail/${item.id}`}>View Details</Link> */}
                 <Link to={`/productdetail/${item.id}`}>View Details</Link>
               </Card.Text>
-              <Button variant="secondary" onClick={() => addToCart(item.id)}>
+              <Button
+                variant="outline-success"
+                onClick={() => addToCart(item.id)}
+              >
                 Add to Cart
               </Button>
             </Card.Body>

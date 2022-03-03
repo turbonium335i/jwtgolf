@@ -1,6 +1,12 @@
 import React from "react";
 import { Button } from "react-bootstrap";
 
+for (let i = 0; i < data.length; i++) {
+  if (data[i].id == 2) {
+    setHistory(data[i]);
+  }
+}
+
 const ProductDetail = ({ itemNum }) => {
   return (
     <div className="container bg-light mb-3">

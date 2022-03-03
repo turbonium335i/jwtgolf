@@ -90,7 +90,7 @@ const Landing = ({ rentDate }) => {
               src="https://i.postimg.cc/DfS1jYhW/pxgwo.jpg"
             />
             <Card.Body>
-              <Card.Title>PXG</Card.Title>
+              <Card.Title>TOPS</Card.Title>
               <Card.Text>
                 This card has supporting text below as a natural lead-in to
                 additional content.{" "}
@@ -106,7 +106,7 @@ const Landing = ({ rentDate }) => {
               src="https://i.postimg.cc/Pq62ZpW0/titleist.jpg"
             />
             <Card.Body>
-              <Card.Title>Titleist</Card.Title>
+              <Card.Title>BOTTOM</Card.Title>
               <Card.Text>
                 This is a wider card with supporting text below as a natural
                 lead-in to additional content. This card has even longer content
@@ -123,7 +123,7 @@ const Landing = ({ rentDate }) => {
               src="https://i.postimg.cc/63GQB83G/callaway.jpg"
             />
             <Card.Body>
-              <Card.Title>Callaway</Card.Title>
+              <Card.Title>Accessories</Card.Title>
               <Card.Text>
                 This is a wider card with supporting text below as a natural
                 lead-in to additional content. This card has even longer content

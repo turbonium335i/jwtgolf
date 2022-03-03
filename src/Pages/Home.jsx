@@ -39,7 +39,8 @@ const Home = () => {
     if (response.status === 200) {
       setItems(data);
     } else if (response.statusText === "Unauthorized") {
-      logoutUser();
+      console.log("Unauthorized");
+      // logoutUser();
     }
   };
 

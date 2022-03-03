@@ -2,7 +2,7 @@ import logo from "./logo.svg";
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import { AuthProvider } from "./Context/AuthContext";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Aos from "aos";
 import "aos/dist/aos.css";
 
@@ -30,7 +30,6 @@ import {
 
 import PrivateRoute from "./Utils/PrivateRoute";
 
-import Home from "./Pages/Home";
 import Private from "./Pages/Private";
 import Login from "./Pages/Login";
 import Landing from "./Pages/Landing";
@@ -159,20 +158,23 @@ function App() {
                     {" "}
                     Home
                   </Link>
-                  <Link to="/login" className="text-decoration-none nav-link">
+                  <Link
+                    to="/productbydate"
+                    className="text-decoration-none nav-link"
+                  >
                     {" "}
-                    Login
+                    RoundDate
                   </Link>
-                  <Link to="/private" className="text-decoration-none nav-link">
+                  {/* <Link to="/private" className="text-decoration-none nav-link">
                     {" "}
                     Private
-                  </Link>
+                  </Link> */}
                   <Link
                     to="/products"
                     className="text-decoration-none nav-link"
                   >
                     {" "}
-                    products
+                    Shop
                   </Link>
                   <Link to="/cart" className="text-decoration-none nav-link">
                     {" "}
@@ -184,11 +186,16 @@ function App() {
                   </Link>
                 </Nav>
                 <span className="text-warning">
-                  <BsPersonCircle />
+                  <Link to="/profile">
+                    <BsPersonCircle />{" "}
+                  </Link>
                 </span>
                 &nbsp;{" "}
                 <span className="text-warning">
-                  <UserID /> &nbsp;
+                  <Link to="/profile" style={{ textDecoration: "none" }}>
+                    <UserID />
+                  </Link>{" "}
+                  &nbsp;
                 </span>
                 <Link to="/cart" style={{ textDecoration: "none" }}>
                   <BsFillCartFill className="text-dark" />
@@ -217,12 +224,15 @@ function App() {
 
           <Routes>
             <Route path="/" element={<Landing rentDate={rentDate} />} />
-            <Route path="home" element={<Home />} />
+
             <Route
               path="signup"
               element={<SignUp mstat={mstat} messageback={messageback} />}
             />
-            <Route path="login" element={<Login />} />
+            <Route
+              path="login"
+              element={<Login mstat={mstat} messageback={messageback} />}
+            />
             <Route
               path="products"
               element={
@@ -241,6 +251,7 @@ function App() {
                   onAdd={onAdd}
                   mstat={mstat}
                   messageback={messageback}
+                  items={items}
                 />
               }
             />
@@ -267,13 +278,13 @@ function App() {
                 <CheckOut kart={kart} items={items} onDelete={onDelete} />
               }
             />
-            <Route
-              path="profile"
-              element={<Profile kart={kart} items={items} />}
-            />
 
             <Route element={<PrivateRoute />}>
               <Route path="private" element={<Private />} />
+              <Route
+                path="profile"
+                element={<Profile kart={kart} items={items} />}
+              />
             </Route>
           </Routes>
           <FooterRaw />
